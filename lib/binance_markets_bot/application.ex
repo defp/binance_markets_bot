@@ -6,10 +6,13 @@ defmodule BinanceMarketsBot.Application do
   use Application
 
   def start(_type, _args) do
-    # List all child processes to be supervised
+    second =
+      if System.get_env("second"), do: String.to_integer(System.get_env("second")), else: 10
+
     children = [
-      # Starts a worker by calling: BinanceMarketsBot.Worker.start_link(arg)
-      {BinanceMarketsBot.Client, []},
+      {BinanceMarketsBot.Periodically, [second: second]},
+      {BinanceMarketsBot.Client, %{}},
+      {BinanceMarketsBot.Telegram, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
