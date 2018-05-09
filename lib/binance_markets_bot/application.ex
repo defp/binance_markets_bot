@@ -9,7 +9,7 @@ defmodule BinanceMarketsBot.Application do
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: BinanceMarketsBot.Worker.start_link(arg)
-      # {BinanceMarketsBot.Worker, arg},
+      {BinanceMarketsBot.Client, []},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
