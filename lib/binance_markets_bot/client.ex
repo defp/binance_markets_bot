@@ -3,7 +3,7 @@ defmodule BinanceMarketsBot.Client do
   require Logger
 
   def start_link(state) do
-    options = if Mix.env() == :dev, do: [debug: [:trace]], else: []
+    options = if Mix.env() == :dev, do: [debug: [:trace]], else: [socket_connect_timeout: 10000]
     ws_endpoint = "wss://stream.binance.com:9443/ws/!ticker@arr"
     WebSockex.start_link(ws_endpoint, __MODULE__, state, options)
   end
