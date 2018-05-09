@@ -6,6 +6,21 @@ defmodule BinanceMarketsBot.Telegram do
     GenServer.start_link(__MODULE__, args, name: :telegram)
   end
 
+  defp format_change(change) when is_binary(change) do
+    {change, _} = Float.parse(change)
+    format_change(change)
+  end
+
+ defp format_change(change) when change > 0,
+    do: "+#{:erlang.float_to_binary(change, decimals: 2)}%"
+
+  defp format_change(change) when change == 0,
+    do: "=#{:erlang.float_to_binary(change, decimals: 2)}%"
+
+  defp format_change(change) when change < 0,
+    do: "#{:erlang.float_to_binary(change, decimals: 2)}%"
+
+
   defp format_coin_name(name) do
     name |> String.replace("USDT", "") |> String.upcase() |> String.pad_trailing(5)
   end
@@ -21,7 +36,8 @@ defmodule BinanceMarketsBot.Telegram do
       |> Enum.map(fn info ->
         coin_name = format_coin_name(info["s"])
         price = format_price(info["c"])
-        ~s(#{coin_name} $#{price} #{info["P"]}\n)
+        change = format_change(info["P"])
+        ~s(#{coin_name} $#{price} #{change}\n)
       end)
       |> Enum.join("")
 
