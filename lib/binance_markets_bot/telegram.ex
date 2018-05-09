@@ -35,14 +35,25 @@ defmodule BinanceMarketsBot.Telegram do
 
     ticker_statistics = Poison.decode!(data)
     ticker_statistics_map = Enum.into(ticker_statistics, %{}, fn m -> {m["s"], m} end)
+
     result =
       coins
       |> Enum.map(fn c -> String.upcase("#{c}usdt") end)
       |> Enum.map(fn symbol -> Map.get(ticker_statistics_map, symbol) end)
 
-    Logger.debug(inspect(result))
-    text = format_markdown(result)
-    Logger.info("markdown #{text}")
+    case Nadia.send_message(
+           "@binance_markets",
+           format_markdown(result),
+           parse_mode: "Markdown",
+           disable_notification: true
+         ) do
+      {:ok, _result} ->
+        :ok
+
+      {:error, %Nadia.Model.Error{reason: reason}} ->
+        Logger.error("send_message error #{reason}")
+    end
+
     {:noreply, state}
   end
 end

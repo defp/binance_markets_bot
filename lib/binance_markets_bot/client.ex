@@ -13,7 +13,7 @@ defmodule BinanceMarketsBot.Client do
     Logger.info("Connected!")
     {:ok, state}
   end
-  
+
   def handle_frame({:text, msg}, state) do
     {:ok, Map.put(state, :data, msg)}
   end
