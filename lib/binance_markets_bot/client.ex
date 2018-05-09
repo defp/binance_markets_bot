@@ -26,6 +26,7 @@ defmodule BinanceMarketsBot.Client do
   def handle_info(:telegram, state) do
     pid = Process.whereis(:telegram)
     GenServer.cast(pid, {:send, state[:data]})
+    {:ok, state}
   end
 
   def terminate(reason, _state) do
