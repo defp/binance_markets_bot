@@ -40,7 +40,12 @@ defmodule BinanceMarketsBot.Client do
 
     btc_coins = [
       "ethbtc",
-      "adabtc"
+      "adabtc",
+      "aebtc",
+      "etcbtc",
+      "eosbtc",
+      "xrpbtc",
+      "ltcbtc"
     ]
 
     usdt_data =
