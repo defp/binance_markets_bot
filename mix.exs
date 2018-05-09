@@ -14,7 +14,7 @@ defmodule BinanceMarketsBot.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger, :websockex],
+      extra_applications: [:logger, :websockex, :nadia],
       mod: {BinanceMarketsBot.Application, []}
     ]
   end
