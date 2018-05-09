@@ -51,8 +51,6 @@ defmodule BinanceMarketsBot.Client do
       btc_coins
       |> Enum.map(fn c -> Map.get(state, String.upcase(c)) end)
 
-    IO.puts(inspect(btc_data))
-
     GenServer.cast(
       Process.whereis(:telegram),
       {:send, %{usdt_data: usdt_data, btc_data: btc_data}}
