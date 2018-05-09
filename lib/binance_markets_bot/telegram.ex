@@ -15,7 +15,7 @@ defmodule BinanceMarketsBot.Telegram do
       data
       |> Enum.map(fn info ->
         coin_name = format_coin_name(info["s"])
-        ~s(#{coin_name} $#{info["c"} #{info["P"]}\n)
+        ~s(#{coin_name} $#{info["c"]} #{info["P"]}\n)
       end)
       |> Enum.join("")
 
