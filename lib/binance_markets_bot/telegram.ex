@@ -11,7 +11,7 @@ defmodule BinanceMarketsBot.Telegram do
     format_change(change)
   end
 
- defp format_change(change) when change > 0,
+  defp format_change(change) when change > 0,
     do: "+#{:erlang.float_to_binary(change, decimals: 2)}%"
 
   defp format_change(change) when change == 0,
@@ -20,28 +20,48 @@ defmodule BinanceMarketsBot.Telegram do
   defp format_change(change) when change < 0,
     do: "#{:erlang.float_to_binary(change, decimals: 2)}%"
 
-
   defp format_coin_name(name) do
-    name |> String.replace("USDT", "") |> String.upcase() |> String.pad_trailing(5)
+    cond do
+      String.ends_with?(name, "USDT") ->
+        name |> String.replace("USDT", "")
+
+      String.ends_with?(name, "BTC") ->
+        name |> String.replace("BTC", "")
+    end
+    |> String.upcase()
+    |> String.pad_trailing(5)
   end
 
-  defp format_price(price) do
+  defp format_price(price, decimals) do
     {price, _} = Float.parse(price)
-    price |> :erlang.float_to_binary(decimals: 3) |> String.pad_trailing(10)
+    price |> :erlang.float_to_binary(decimals: decimals) |> String.pad_trailing(12)
   end
 
   def format_markdown(data) do
-    text =
-      data
+    usdt_data = data[:usdt_data]
+    btc_data = data[:btc_data]
+
+    usdt_text =
+      usdt_data
       |> Enum.map(fn info ->
         coin_name = format_coin_name(info["s"])
-        price = format_price(info["c"])
+        price = format_price(info["c"], 3)
         change = format_change(info["P"])
         ~s(#{coin_name} $#{price} #{change}\n)
       end)
       |> Enum.join("")
 
-    "*USDT*\n```\n#{text}```"
+    btc_text =
+      btc_data
+      |> Enum.map(fn info ->
+        coin_name = format_coin_name(info["s"])
+        price = format_price(info["c"], 8)
+        change = format_change(info["P"])
+        ~s(#{coin_name} #{price} #{change}\n)
+      end)
+      |> Enum.join("")
+
+    "*USDT*\n```\n#{usdt_text}```\n*BTC*\n```\n#{btc_text}```"
   end
 
   # callback

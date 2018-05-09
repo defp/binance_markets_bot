@@ -26,24 +26,38 @@ defmodule BinanceMarketsBot.Client do
   end
 
   def handle_info(:telegram, state) do
-    coins = [
-      "btc",
-      "eth",
-      "bcc",
-      "bnb",
-      "ada",
-      "ltc",
-      "neo",
-      "xrp",
-      "qtum"
+    usdt_coins = [
+      "btcusdt",
+      "ethusdt",
+      "bccusdt",
+      "bnbusdt",
+      "adausdt",
+      "ltcusdt",
+      "neousdt",
+      "xrpusdt",
+      "qtumusdt"
     ]
 
-    data =
-      coins
-      |> Enum.map(fn c -> Map.get(state, String.upcase("#{c}usdt")) end)
+    btc_coins = [
+      "ethbtc",
+      "adabtc"
+    ]
 
-    pid = Process.whereis(:telegram)
-    GenServer.cast(pid, {:send, data})
+    usdt_data =
+      usdt_coins
+      |> Enum.map(fn c -> Map.get(state, String.upcase(c)) end)
+
+    btc_data =
+      btc_coins
+      |> Enum.map(fn c -> Map.get(state, String.upcase(c)) end)
+
+    IO.puts(inspect(btc_data))
+
+    GenServer.cast(
+      Process.whereis(:telegram),
+      {:send, %{usdt_data: usdt_data, btc_data: btc_data}}
+    )
+
     {:ok, state}
   end
 

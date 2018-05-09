@@ -7,7 +7,7 @@ defmodule BinanceMarketsBot.Periodically do
   end
 
   def init(args) do
-    schedule_work(args[:second])
+    schedule_work(args[:second] + 10)
     {:ok, args}
   end
 
