@@ -28,7 +28,14 @@ defmodule BinanceMarketsBot.Client do
   def handle_info(:telegram, state) do
     coins = [
       "btc",
-      "eth"
+      "eth",
+      "bcc",
+      "bnb",
+      "ada",
+      "ltc",
+      "neo",
+      "xrp",
+      "qtum"
     ]
 
     data =
