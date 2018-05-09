@@ -9,6 +9,11 @@ defmodule BinanceMarketsBot.Client do
     WebSockex.start_link(ws_endpoint, __MODULE__, state, options)
   end
 
+  def handle_connect(_conn, state) do
+    Logger.info("Connected!")
+    {:ok, state}
+  end
+  
   def handle_frame({:text, msg}, state) do
     {:ok, Map.put(state, :data, msg)}
   end
