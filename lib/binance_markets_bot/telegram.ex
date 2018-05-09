@@ -28,14 +28,11 @@ defmodule BinanceMarketsBot.Telegram do
   end
 
   def handle_cast({:send, data}, state) do
-    case Nadia.send_message(
-           "@binance_markets",
-           format_markdown(data),
-           parse_mode: "Markdown",
-           disable_notification: true
-         ) do
+    options = [parse_mode: "Markdown", disable_notification: true]
+
+    case Nadia.send_message("@binance_markets", format_markdown(data), options) do
       {:ok, _result} ->
-        :ok
+        Logger.info("send_message successful")
 
       {:error, %Nadia.Model.Error{reason: reason}} ->
         Logger.error("send_message error #{reason}")

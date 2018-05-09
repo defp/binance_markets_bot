@@ -30,7 +30,7 @@ defmodule BinanceMarketsBot.Client do
       "btc",
       "eth"
     ]
-    
+
     data =
       coins
       |> Enum.map(fn c -> Map.get(state, String.upcase("#{c}usdt")) end)
