@@ -10,13 +10,7 @@ defmodule BinanceMarketsBot.Client do
   end
 
   def handle_frame({:text, msg}, state) do
-    state = %{state | data: msg}
-    {:ok, state}
-  end
-
-  def handle_frame({type, msg}, state) do
-    Logger.info("Received Message - Type: #{inspect(type)} -- Message: #{msg}")
-    {:ok, state}
+    {:ok, Map.put(state, :data, msg)}
   end
 
   def handle_disconnect(%{reason: reason}, state) do
