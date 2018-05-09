@@ -15,7 +15,9 @@ defmodule BinanceMarketsBot.Client do
   end
 
   def handle_frame({:text, msg}, state) do
-    {:ok, Map.put(state, :data, msg)}
+    ticker_statistics = Poison.decode!(msg)
+    state = Enum.into(ticker_statistics, state, fn m -> {m["s"], m} end)
+    {:ok, state}
   end
 
   def handle_disconnect(%{reason: reason}, state) do
@@ -24,8 +26,17 @@ defmodule BinanceMarketsBot.Client do
   end
 
   def handle_info(:telegram, state) do
+    coins = [
+      "btc",
+      "eth"
+    ]
+    
+    data =
+      coins
+      |> Enum.map(fn c -> Map.get(state, String.upcase("#{c}usdt")) end)
+
     pid = Process.whereis(:telegram)
-    GenServer.cast(pid, {:send, state[:data]})
+    GenServer.cast(pid, {:send, data})
     {:ok, state}
   end
 

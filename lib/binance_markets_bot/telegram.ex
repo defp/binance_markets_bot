@@ -28,22 +28,9 @@ defmodule BinanceMarketsBot.Telegram do
   end
 
   def handle_cast({:send, data}, state) do
-    coins = [
-      "btc",
-      "eth"
-    ]
-
-    ticker_statistics = Poison.decode!(data)
-    ticker_statistics_map = Enum.into(ticker_statistics, %{}, fn m -> {m["s"], m} end)
-
-    result =
-      coins
-      |> Enum.map(fn c -> String.upcase("#{c}usdt") end)
-      |> Enum.map(fn symbol -> Map.get(ticker_statistics_map, symbol) end)
-
     case Nadia.send_message(
            "@binance_markets",
-           format_markdown(result),
+           format_markdown(data),
            parse_mode: "Markdown",
            disable_notification: true
          ) do
