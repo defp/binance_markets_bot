@@ -7,7 +7,7 @@ defmodule BinanceMarketsBot.Telegram do
   end
 
   defp format_coin_name(name) do
-    name |> String.replace("usdt", "") |> String.upcase() |> String.pad_trailing(5)
+    name |> String.replace("USDT", "") |> String.upcase() |> String.pad_trailing(5)
   end
 
   def format_markdown(data) do
