@@ -10,12 +10,18 @@ defmodule BinanceMarketsBot.Telegram do
     name |> String.replace("USDT", "") |> String.upcase() |> String.pad_trailing(5)
   end
 
+  defp format_price(price) do
+    {price, _} = Float.parse(price)
+    price |> :erlang.float_to_binary(decimals: 3) |> String.pad_trailing(10)
+  end
+
   def format_markdown(data) do
     text =
       data
       |> Enum.map(fn info ->
         coin_name = format_coin_name(info["s"])
-        ~s(#{coin_name} $#{info["c"]} #{info["P"]}\n)
+        price = format_price(info["c"])
+        ~s(#{coin_name} $#{price} #{info["P"]}\n)
       end)
       |> Enum.join("")
 
