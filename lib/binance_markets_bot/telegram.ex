@@ -55,9 +55,9 @@ defmodule BinanceMarketsBot.Telegram do
       btc_data
       |> Enum.map(fn info ->
         coin_name = format_coin_name(info["s"])
-        price = format_price(info["c"], 8)
+        price = format_price(info["c"], 9)
         change = format_change(info["P"])
-        ~s(#{coin_name} #{price} #{change}\n)
+        ~s(#{coin_name} #{price}  #{change}\n)
       end)
       |> Enum.join("")
 
