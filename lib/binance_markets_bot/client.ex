@@ -28,10 +28,10 @@ defmodule BinanceMarketsBot.Client do
   def handle_info(:telegram, state) do
     usdt_coins = [
       "btcusdt",
+      "adausdt",
       "ethusdt",
       "bccusdt",
       "bnbusdt",
-      "adausdt",
       "ltcusdt",
       "neousdt",
       "xrpusdt",
