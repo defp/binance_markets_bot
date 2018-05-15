@@ -22,7 +22,7 @@ defmodule BinanceMarketsBot.Client do
 
   def handle_disconnect(%{reason: reason}, state) do
     Logger.info("Local close with reason: #{inspect(reason)}")
-    {:ok, state}
+    {:reconnect, state}
   end
 
   def handle_info(:telegram, state) do
