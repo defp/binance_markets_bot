@@ -30,7 +30,6 @@ defmodule BinanceMarketsBot.Client do
       "btcusdt",
       "adausdt",
       "ethusdt",
-      "bchusdt",
       "eosusdt",
       "bnbusdt",
       "ltcusdt",
