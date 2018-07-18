@@ -35,6 +35,7 @@ defmodule BinanceMarketsBot.Client do
       "ltcusdt",
       "neousdt",
       "xrpusdt",
+      "xlmusdt",
       "qtumusdt"
     ]
 
@@ -45,7 +46,8 @@ defmodule BinanceMarketsBot.Client do
       "etcbtc",
       "eosbtc",
       "xrpbtc",
-      "ltcbtc"
+      "ltcbtc",
+      "xlmbtc"
     ]
 
     usdt_data =
