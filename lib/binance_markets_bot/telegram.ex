@@ -45,7 +45,7 @@ defmodule BinanceMarketsBot.Telegram do
       usdt_data
       |> Enum.map(fn info ->
         coin_name = format_coin_name(info["s"])
-        price = format_price(info["c"], 3)
+        price = format_price(info["c"], 4)
         change = format_change(info["P"])
         ~s(#{coin_name} $#{price} #{change}\n)
       end)
