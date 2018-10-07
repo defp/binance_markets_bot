@@ -8,4 +8,4 @@ RUN export MIX_ENV=prod && \
     mix deps.get && \
     mix compile
 
-CMD ["mix run --no-halt "]
+CMD ["mix run"]
