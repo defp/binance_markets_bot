@@ -48,7 +48,8 @@ defmodule BinanceMarketsBot.Client do
       "xrpbtc",
       "ltcbtc",
       "xlmbtc",
-      "dashbtc"
+      "dashbtc",
+      "xmrbtc"
     ]
 
     usdt_data =
