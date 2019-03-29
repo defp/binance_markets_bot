@@ -36,7 +36,9 @@ defmodule BinanceMarketsBot.Client do
       "neousdt",
       "xrpusdt",
       "xlmusdt",
-      "qtumusdt"
+      "qtumusdt",
+      "bchsvusdt",
+      "bchabcusdt"
     ]
 
     btc_coins = [
