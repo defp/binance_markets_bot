@@ -37,7 +37,6 @@ defmodule BinanceMarketsBot.Client do
       "xrpusdt",
       "xlmusdt",
       "qtumusdt",
-      "bchsvusdt",
       "bchabcusdt"
     ]
 
