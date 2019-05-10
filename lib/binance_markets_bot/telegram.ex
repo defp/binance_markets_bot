@@ -22,6 +22,9 @@ defmodule BinanceMarketsBot.Telegram do
 
   defp format_coin_name(name) do
     cond do
+      "BCHABCUSDT" ->
+        "BCH"
+        
       String.ends_with?(name, "USDT") ->
         name |> String.replace("USDT", "")
 
